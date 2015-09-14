@@ -1,8 +1,11 @@
+/*jslint node: true */
+
+"use strict";
+
 class PkmnLibModule {
   constuctor() {
     if (this.init === undefined) {
-      // or maybe test typeof this.method === "function"
-      throw new TypeError("Must override method");
+      throw new TypeError("Must override method init");
     }
   }
   
@@ -37,8 +40,6 @@ class PkmnLib extends PkmnLibModule {
   }
 }
 
-window.PkmnLib = PkmnLib;
-
 function walkerGen(deps) {
   var pkmnLib = null;
   
@@ -55,4 +56,8 @@ function walkerGen(deps) {
   return pkmnLib;
 }
 
-window.pkmnLib = walkerGen([window.PkmnLib]);
+var pkmnLib = walkerGen([PkmnLib]);
+
+pkmnLib.Module = PkmnLibModule;
+
+export default pkmnLib;
