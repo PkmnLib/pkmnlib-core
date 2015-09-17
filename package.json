@@ -1,0 +1,45 @@
+{
+  "name": "pkmnlib.js",
+  "version": "0.0.1",
+  "description": "A library for the Pokemon video game franchise",
+  "main": "dist/build-es5.js",
+  "jsnext:main": "dist/build-es6.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:package:umd:es6:stdout": "node build-scripts/rollup.js umd",
+    "build:package:umd:es6": "npm run build:package:umd:es6:stdout -s > dist/build-es6-umd.js",
+    "build:package:umd:es5:stdout": "node build-scripts/rollup.js umd | babel -b strict",
+    "build:package:umd:es5": "npm run build:package:umd:es5:stdout -s > dist/build-es5.js",
+    "build:package:module:es6:stdout": "rollup -f es6 src/loader.js",
+    "build:package:module:es6": "npm run build:package:module:es6:stdout -s > dist/build-es6.js",
+		"build:package:umd": "npm run build:package:umd:es6 -s && npm run build:package:umd:es5",
+		"build:package:module": "npm run build:package:module:es6 -s",
+		"build:package": "npm run build:package:umd -s && npm run build:package:module -s",
+		"build:minify": "uglifyjs dist/build-es5.js > dist/build-es5.min.js",
+		"build": "npm run build:package && npm run build:minify",
+		"start": "npm run build -s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PkmnLib/pkmnlib-core.git"
+  },
+  "keywords": [
+    "pokemon",
+    "videogames",
+    "game",
+    "nintendo",
+    "library",
+    "es6"
+  ],
+  "author": "snuggles08",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PkmnLib/pkmnlib-core/issues"
+  },
+  "homepage": "https://github.com/PkmnLib/pkmnlib-core#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "preprocess": "^3.0.2",
+    "rollup": "^0.15.0"
+  }
+}
