@@ -39,6 +39,9 @@ However, in order for it to be useful, you must add modules. To add modules, add
 ### Module
 A PkmnLib.js module should be an ES6 class that extends `PkmnLib.Module`. A module's constructor should **not** handle initialization. It should only call `super()`. It's `init` method should handle initialization. Use `this.originalPkmnLib` to get properties from other modules. Set properties on `this` to add to the core module. See `src/core.js` for an example.
 
+### More in-depth docs
+Available at <https://doc.esdoc.org/github.com/PkmnLib/pkmnlib-core/>.
+
 ### Actually doing things
 In order to be useful, this library must be extended with modules. See `config.js` to learn how to add modules.
 
