@@ -11,21 +11,60 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 })(this, function () {
 	'use strict';
 
+	/**
+  * A module for PkmnLib.
+  */
+
 	var PkmnLibModule = (function () {
 		function PkmnLibModule() {
 			_classCallCheck(this, PkmnLibModule);
 		}
 
+		/**
+   * The library.
+   * @type {Object}
+   */
+
 		_createClass(PkmnLibModule, [{
 			key: 'constuctor',
+
+			/**
+    * Create uninitialized module.
+    * @return {PkmnLibModule} Returns uninitialized module.
+    */
 			value: function constuctor() {
-				if (this.init === undefined) {
+				if ('' + this.init == '' + function init() {}) {
+					// Yes, hack, but only way to compare the function to a blank one.
 					throw new TypeError("Must override method init");
 				}
 			}
+
+			/**
+    * Get instance with proper checks.
+    * @return {PkmnLib} Returns PkmnLib instance.
+    */
+		}, {
+			key: 'init',
+
+			/**
+    * Initializing method. Assign to `this.pkmnLib` to call.
+    * @private
+    * @abstract
+    * @return {null} Returns nothing.
+    */
+			value: function init() {}
+
+			/**
+    * Run when no PkmnLib instance is available.
+    * @return {TypeError} TypeError error for throwing.
+    */
 		}, {
 			key: 'pkmnLib',
 			get: function get() {
+				/**
+     * Non-scoped `this`.
+     * @private
+     */
 				var self = this;
 
 				if (typeof self.originalPkmnLib === 'undefined') {
@@ -34,11 +73,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 				return self;
 			},
+
+			/**
+    * Initialize this module in the chain. To initialize, assign the previous PkmnLib instance to this.
+    * @param {PkmnLib} val - See method description.
+    */
 			set: function set(val) {
+				/**
+     * Previous PkmnLib instance.
+     * @private
+     * @type {PkmnLib}
+     */
 				this.originalPkmnLib = val || {};
 
 				this.init();
 
+				/**
+     * `Object.assign` with accessor support.
+     * @private
+     * @param {Object} target - Target object.
+     * @param {...Object} sources - Source object(s).
+     * @return {Object} Modified target object.
+     */
 				function accessorAssign(target) {
 					for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
 						sources[_key - 1] = arguments[_key];
@@ -58,7 +114,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		}], [{
 			key: 'NoPkmnLib',
 			value: function NoPkmnLib() {
-				return new Error('No originalPkmnLib instance!');
+				return new TypeError('No originalPkmnLib instance!');
 			}
 		}]);
 
@@ -68,18 +124,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	var PkmnLib = (function (_PkmnLibModule) {
 		_inherits(PkmnLib, _PkmnLibModule);
 
+		/**
+   * Sets up PkmnLib. Only call via loader.
+   * @return {{}} Uninitialized PkmnLib instance
+   */
+
 		function PkmnLib() {
 			_classCallCheck(this, PkmnLib);
 
 			_get(Object.getPrototypeOf(PkmnLib.prototype), 'constructor', this).call(this);
 		}
 
+		/**
+   * Initializes PkmnLib. Makes `this.core` an instance of Core and merges `this.originalPkmnLib` into `this`.
+  * @override
+   * @return {null} Returns nothing.
+   */
+
 		_createClass(PkmnLib, [{
 			key: 'init',
 			value: function init() {
-				this.core = {
+				/**
+     * Core Module
+     * @typedef {loaded: boolean} Core
+     * @property {boolean} loaded Always true.
+     */
+				var Core = {
 					loaded: true
 				};
+
+				/**
+     * Standard instance of Core.
+     * @type {Core}
+     */
+				this.core = Core;
 			}
 		}]);
 
@@ -464,6 +542,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 	"use strict";
 
+	/**
+  * Generates a PkmnLib instance from dependencies.
+  * @private
+  * @return {PkmnLib} An instance of PkmnLib.
+  */
 	function walkerGen(deps, pkmnLib) {
 		pkmnLib = typeof pkmnLib === 'undefined' ? null : pkmnLib;
 
@@ -508,6 +591,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		return pkmnLib;
 	}
 
+	/**
+  * Finalized PkmnLib.
+  * @type {PkmnLib}
+  */
 	var pkmnLib = walkerGen(flatten(config.modules, true));
 
 	pkmnLib.Module = PkmnLibModule;

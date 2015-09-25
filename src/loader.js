@@ -4,6 +4,11 @@
 
 import PkmnLib from './core';
 
+/**
+ * Generates a PkmnLib instance from dependencies.
+ * @private
+ * @return {PkmnLib} An instance of PkmnLib.
+ */
 function walkerGen(deps, pkmnLib) {
   pkmnLib = (typeof pkmnLib === 'undefined') ? null : pkmnLib;
   
@@ -30,6 +35,10 @@ function walkerGen(deps, pkmnLib) {
 import flatten from './../lib/lodash-flatten/array/flatten';
 import config from './../config';
 
+/**
+ * Finalized PkmnLib.
+ * @type {PkmnLib}
+ */
 var pkmnLib = walkerGen(flatten(config.modules, true));
 
 import Module from './Module';

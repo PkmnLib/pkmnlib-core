@@ -1,11 +1,26 @@
+/**
+ * A module for PkmnLib.
+ */
 class PkmnLibModule {
+	/**
+	 * Create uninitialized module.
+	 * @return {PkmnLibModule} Returns uninitialized module.
+	 */
   constuctor() {
-    if (this.init === undefined) {
+    if (''+this.init == ''+(function init() {})) { // Yes, hack, but only way to compare the function to a blank one.
       throw new TypeError("Must override method init");
     }
   }
-
+	
+	/**
+	 * Get instance with proper checks.
+	 * @return {PkmnLib} Returns PkmnLib instance.
+	 */
   get pkmnLib() {
+		/**
+		 * Non-scoped `this`.
+		 * @private
+		 */
     var self = this;
 
     if (typeof self.originalPkmnLib === 'undefined') {
@@ -14,12 +29,28 @@ class PkmnLibModule {
 
     return self;
   }
-
+	
+	/**
+	 * Initialize this module in the chain. To initialize, assign the previous PkmnLib instance to this.
+	 * @param {PkmnLib} val - See method description.
+	 */
   set pkmnLib(val) {
+		/**
+		 * Previous PkmnLib instance.
+		 * @private
+		 * @type {PkmnLib}
+		 */
     this.originalPkmnLib = val || {};
 
     this.init();
     
+		/**
+		 * `Object.assign` with accessor support.
+		 * @private
+		 * @param {Object} target - Target object.
+		 * @param {...Object} sources - Source object(s).
+		 * @return {Object} Modified target object.
+		 */
     function accessorAssign(target, ...sources) {
       sources.forEach(source => {
         Object.defineProperties(target, Object.keys(source).reduce((descriptors, key) => {
@@ -32,21 +63,59 @@ class PkmnLibModule {
     
     accessorAssign(this, this.originalPkmnLib);
   }
-
+	
+	/**
+	 * Initializing method. Assign to `this.pkmnLib` to call.
+	 * @private
+	 * @abstract
+	 * @return {null} Returns nothing.
+	 */
+	init() {
+		
+	}
+	
+	/**
+	 * Run when no PkmnLib instance is available.
+	 * @return {TypeError} TypeError error for throwing.
+	 */
   static NoPkmnLib() {
-    return new Error('No originalPkmnLib instance!');
+    return new TypeError('No originalPkmnLib instance!');
   }
 }
 
+/**
+ * The library.
+ * @type {Object}
+ */
 class PkmnLib extends PkmnLibModule {
+  /**
+   * Sets up PkmnLib. Only call via loader.
+   * @return {{}} Uninitialized PkmnLib instance
+   */
   constructor() {
     super();
   }
-
+  
+  /**
+   * Initializes PkmnLib. Makes `this.core` an instance of Core and merges `this.originalPkmnLib` into `this`.
+	 * @override
+   * @return {null} Returns nothing.
+   */
   init() {
-    this.core = {
-      loaded: true
-    };
+		/**
+		 * Core Module
+		 * @typedef {loaded: boolean} Core
+		 * @property {boolean} loaded Always true.
+		 */
+		var Core = {
+			loaded: true
+		};
+		
+		/**
+		 * Standard instance of Core.
+		 * @type {Core}
+		 */
+    this.core = Core;
   }
 }
 
@@ -437,6 +506,11 @@ function flatten(array, isDeep, guard) {
 
 "use strict";
 
+/**
+ * Generates a PkmnLib instance from dependencies.
+ * @private
+ * @return {PkmnLib} An instance of PkmnLib.
+ */
 function walkerGen(deps, pkmnLib) {
   pkmnLib = (typeof pkmnLib === 'undefined') ? null : pkmnLib;
   
@@ -460,6 +534,10 @@ function walkerGen(deps, pkmnLib) {
   return pkmnLib;
 }
 
+/**
+ * Finalized PkmnLib.
+ * @type {PkmnLib}
+ */
 var pkmnLib = walkerGen(flatten(config.modules, true));
 
 //@endif

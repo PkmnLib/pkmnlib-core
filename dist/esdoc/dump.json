@@ -1,0 +1,1059 @@
+[
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Module.js",
+    "memberof": null,
+    "longname": "src/Module.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 4,
+    "content": "/**\n * A module for PkmnLib.\n */\nclass PkmnLibModule {\n\t/**\n\t * Create uninitialized module.\n\t * @return {PkmnLibModule} Returns uninitialized module.\n\t */\n  constuctor() {\n    if (''+this.init == ''+(function init() {})) { // Yes, hack, but only way to compare the function to a blank one.\n      throw new TypeError(\"Must override method init\");\n    }\n  }\n\t\n\t/**\n\t * Get instance with proper checks.\n\t * @return {PkmnLib} Returns PkmnLib instance.\n\t */\n  get pkmnLib() {\n\t\t/**\n\t\t * Non-scoped `this`.\n\t\t * @private\n\t\t */\n    var self = this;\n\n    if (typeof self.originalPkmnLib === 'undefined') {\n      throw PkmnLibModule.NoPkmnLib();\n    }\n\n    return self;\n  }\n\t\n\t/**\n\t * Initialize this module in the chain. To initialize, assign the previous PkmnLib instance to this.\n\t * @param {PkmnLib} val - See method description.\n\t */\n  set pkmnLib(val) {\n\t\t/**\n\t\t * Previous PkmnLib instance.\n\t\t * @private\n\t\t * @type {PkmnLib}\n\t\t */\n    this.originalPkmnLib = val || {};\n\n    this.init();\n    \n\t\t/**\n\t\t * `Object.assign` with accessor support.\n\t\t * @private\n\t\t * @param {Object} target - Target object.\n\t\t * @param {...Object} sources - Source object(s).\n\t\t * @return {Object} Modified target object.\n\t\t */\n    function accessorAssign(target, ...sources) {\n      sources.forEach(source => {\n        Object.defineProperties(target, Object.keys(source).reduce((descriptors, key) => {\n          descriptors[key] = Object.getOwnPropertyDescriptor(source, key);\n          return descriptors;\n        }, {}));\n      });\n      return target;\n    }\n    \n    accessorAssign(this, this.originalPkmnLib);\n  }\n\t\n\t/**\n\t * Initializing method. Assign to `this.pkmnLib` to call.\n\t * @private\n\t * @abstract\n\t * @return {null} Returns nothing.\n\t */\n\tinit() {\n\t\t\n\t}\n\t\n\t/**\n\t * Run when no PkmnLib instance is available.\n\t * @return {TypeError} TypeError error for throwing.\n\t */\n  static NoPkmnLib() {\n    return new TypeError('No originalPkmnLib instance!');\n  }\n}\n\n/**\n * Final PkmnLib module export.\n * @type {PkmnLibModule}\n */\nexport default PkmnLibModule;"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "PkmnLibModule",
+    "memberof": "src/Module.js",
+    "longname": "src/Module.js~PkmnLibModule",
+    "access": null,
+    "export": true,
+    "importPath": "pkmnlib.js/src/Module.js",
+    "importStyle": "PkmnLibModule",
+    "description": "A module for PkmnLib.",
+    "lineNumber": 4,
+    "interface": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "constuctor",
+    "memberof": "src/Module.js~PkmnLibModule",
+    "longname": "src/Module.js~PkmnLibModule#constuctor",
+    "access": null,
+    "description": "Create uninitialized module.",
+    "lineNumber": 9,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "PkmnLibModule"
+      ],
+      "spread": false,
+      "description": "Returns uninitialized module."
+    },
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "pkmnLib",
+    "memberof": "src/Module.js~PkmnLibModule",
+    "longname": "src/Module.js~PkmnLibModule#pkmnLib",
+    "access": null,
+    "description": "Get instance with proper checks.",
+    "lineNumber": 19,
+    "return": {
+      "nullable": null,
+      "types": [
+        "PkmnLib"
+      ],
+      "spread": false,
+      "description": "Returns PkmnLib instance."
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "set",
+    "static": false,
+    "variation": null,
+    "name": "pkmnLib",
+    "memberof": "src/Module.js~PkmnLibModule",
+    "longname": "src/Module.js~PkmnLibModule#pkmnLib",
+    "access": null,
+    "description": "Initialize this module in the chain. To initialize, assign the previous PkmnLib instance to this.",
+    "lineNumber": 37,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "PkmnLib"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "val",
+        "description": "See method description."
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "originalPkmnLib",
+    "memberof": "src/Module.js~PkmnLibModule",
+    "longname": "src/Module.js~PkmnLibModule#originalPkmnLib",
+    "access": "private",
+    "description": "Previous PkmnLib instance.",
+    "lineNumber": 43,
+    "type": {
+      "nullable": null,
+      "types": [
+        "PkmnLib"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "init",
+    "memberof": "src/Module.js~PkmnLibModule",
+    "longname": "src/Module.js~PkmnLibModule#init",
+    "access": "private",
+    "description": "Initializing method. Assign to `this.pkmnLib` to call.",
+    "lineNumber": 73,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "null"
+      ],
+      "spread": false,
+      "description": "Returns nothing."
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "NoPkmnLib",
+    "memberof": "src/Module.js~PkmnLibModule",
+    "longname": "src/Module.js~PkmnLibModule.NoPkmnLib",
+    "access": null,
+    "description": "Run when no PkmnLib instance is available.",
+    "lineNumber": 81,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "TypeError"
+      ],
+      "spread": false,
+      "description": "TypeError error for throwing."
+    },
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "pkmnLibModule",
+    "memberof": "src/Module.js",
+    "longname": "src/Module.js~pkmnLibModule",
+    "access": null,
+    "export": true,
+    "importPath": "pkmnlib.js/src/Module.js",
+    "importStyle": "pkmnLibModule",
+    "description": "Final PkmnLib module export.",
+    "lineNumber": 90,
+    "type": {
+      "nullable": null,
+      "types": [
+        "PkmnLibModule"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/core.js",
+    "memberof": null,
+    "longname": "src/core.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import PkmnLibModule from './Module';\n\n/**\n * The library.\n * @type {Object}\n */\nclass PkmnLib extends PkmnLibModule {\n  /**\n   * Sets up PkmnLib. Only call via loader.\n   * @return {{}} Uninitialized PkmnLib instance\n   */\n  constructor() {\n    super();\n  }\n  \n  /**\n   * Initializes PkmnLib. Makes `this.core` an instance of Core and merges `this.originalPkmnLib` into `this`.\n\t * @override\n   * @return {null} Returns nothing.\n   */\n  init() {\n\t\t/**\n\t\t * Core Module\n\t\t * @typedef {loaded: boolean} Core\n\t\t * @property {boolean} loaded Always true.\n\t\t */\n\t\tvar Core = {\n\t\t\tloaded: true\n\t\t};\n\t\t\n\t\t/**\n\t\t * Standard instance of Core.\n\t\t * @type {Core}\n\t\t */\n    this.core = Core;\n  }\n}\n\n/**\n * Final PkmnLib core export.\n * @type {PkmnLib}\n */\nexport default PkmnLib;"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "PkmnLib",
+    "memberof": "src/core.js",
+    "longname": "src/core.js~PkmnLib",
+    "access": null,
+    "export": true,
+    "importPath": "pkmnlib.js/src/core.js",
+    "importStyle": "PkmnLib",
+    "description": "The library.",
+    "lineNumber": 7,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    },
+    "interface": false,
+    "extends": [
+      "src/Module~PkmnLibModule"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/core.js~PkmnLib",
+    "longname": "src/core.js~PkmnLib#constructor",
+    "access": null,
+    "description": "Sets up PkmnLib. Only call via loader.",
+    "lineNumber": 12,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "{}"
+      ],
+      "spread": false,
+      "description": "Uninitialized PkmnLib instance"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "init",
+    "memberof": "src/core.js~PkmnLib",
+    "longname": "src/core.js~PkmnLib#init",
+    "access": null,
+    "description": "Initializes PkmnLib. Makes `this.core` an instance of Core and merges `this.originalPkmnLib` into `this`.",
+    "lineNumber": 21,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "null"
+      ],
+      "spread": false,
+      "description": "Returns nothing."
+    },
+    "override": true,
+    "generator": false
+  },
+  {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "Core",
+    "memberof": "src/core.js~PkmnLib",
+    "longname": "src/core.js~PkmnLib.Core",
+    "access": null,
+    "description": "Core Module",
+    "lineNumber": 27,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "loaded",
+        "description": "Always true."
+      }
+    ],
+    "type": {
+      "types": [
+        "loaded: boolean"
+      ],
+      "optional": false,
+      "name": "Core"
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "core",
+    "memberof": "src/core.js~PkmnLib",
+    "longname": "src/core.js~PkmnLib#core",
+    "access": null,
+    "description": "Standard instance of Core.",
+    "lineNumber": 35,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Core"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "pkmnLib",
+    "memberof": "src/core.js",
+    "longname": "src/core.js~pkmnLib",
+    "access": null,
+    "export": true,
+    "importPath": "pkmnlib.js/src/core.js",
+    "importStyle": "pkmnLib",
+    "description": "Final PkmnLib core export.",
+    "lineNumber": 43,
+    "type": {
+      "nullable": null,
+      "types": [
+        "PkmnLib"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/loader.js",
+    "memberof": null,
+    "longname": "src/loader.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 3,
+    "content": "/*jslint node: true */\n\n\"use strict\";\n\nimport PkmnLib from './core';\n\n/**\n * Generates a PkmnLib instance from dependencies.\n * @private\n * @return {PkmnLib} An instance of PkmnLib.\n */\nfunction walkerGen(deps, pkmnLib) {\n  pkmnLib = (typeof pkmnLib === 'undefined') ? null : pkmnLib;\n  \n  for (let e of deps) {\n    var newPkmnLib = new e();\n    \n    newPkmnLib.pkmnLib = pkmnLib;\n    \n    pkmnLib = newPkmnLib.pkmnLib;\n  }\n  \n  delete pkmnLib.originalPkmnLib;\n  \n\tObject.defineProperty(pkmnLib, 'constructor', {\n  \tvalue: PkmnLib,\n  \twritable: true,\n  \tenumerable: false,\n  \tconfigurable: true\n\t});\n\t\n  return pkmnLib;\n}\n\nimport flatten from './../lib/lodash-flatten/array/flatten';\nimport config from './../config';\n\n/**\n * Finalized PkmnLib.\n * @type {PkmnLib}\n */\nvar pkmnLib = walkerGen(flatten(config.modules, true));\n\nimport Module from './Module';\n\n//@if ES5=false\nexport {Module};\n//@endif\n\n//@if ES5=true\npkmnLib.Module = Module;\n//@endif\n\nexport default pkmnLib;"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "walkerGen",
+    "memberof": "src/loader.js",
+    "longname": "src/loader.js~walkerGen",
+    "access": "private",
+    "export": false,
+    "importPath": "pkmnlib.js/src/loader.js",
+    "importStyle": null,
+    "description": "Generates a PkmnLib instance from dependencies.",
+    "lineNumber": 12,
+    "params": [
+      {
+        "name": "deps",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "pkmnLib",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "PkmnLib"
+      ],
+      "spread": false,
+      "description": "An instance of PkmnLib."
+    },
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "pkmnLib",
+    "memberof": "src/loader.js",
+    "longname": "src/loader.js~pkmnLib",
+    "access": null,
+    "export": true,
+    "importPath": "pkmnlib.js/src/loader.js",
+    "importStyle": "pkmnLib",
+    "description": "Finalized PkmnLib.",
+    "lineNumber": 42,
+    "type": {
+      "nullable": null,
+      "types": [
+        "PkmnLib"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  }
+]
